@@ -1,0 +1,53 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.71'
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+group = 'top.fan2tao.mirai'
+version = '0.1.0'
+
+repositories {
+    maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+    maven { url 'https://mirrors.huaweicloud.com/repository/maven' }
+    mavenCentral()
+    jcenter()
+}
+
+def miraiCoreVersion = "+" // 1.1.3
+def miraiConsoleVersion = "0.5.2" // 1.0-dev-3
+
+dependencies {
+    annotationProcessor 'org.projectlombok:lombok:+'
+
+    compileOnly 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    compileOnly "net.mamoe:mirai-core:$miraiCoreVersion"
+    compileOnly "net.mamoe:mirai-console:$miraiConsoleVersion"
+    compileOnly 'org.projectlombok:lombok:+'
+
+    implementation 'com.alibaba:fastjson:1.2.73'
+
+    testImplementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    testImplementation "net.mamoe:mirai-core:$miraiCoreVersion"
+    testImplementation "net.mamoe:mirai-core-qqandroid:$miraiCoreVersion"
+    testImplementation "net.mamoe:mirai-console:$miraiConsoleVersion"
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = '1.8'
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = '1.8'
+}
+
+task copy(type: Copy, group: "Custom", description: "Copies jar to the plugins directory") {
+    from "build/libs"
+    into "../../MiraiOK/plugins"
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "GBK"
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8

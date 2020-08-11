@@ -1,0 +1,6 @@
+name: "GoodMornNight"
+author: "fan2tao"
+version: "0.1.0"
+main: "top.fan2tao.mirai.GMN"
+info: ""
+depends: []
